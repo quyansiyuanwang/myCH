@@ -8,7 +8,7 @@ class ItemsFetch:
 
     def __init__(self, complex_obj, turn_method: callable = None, runit: bool = False, apply_turning: bool = None):
         self.complex_obj = complex_obj
-        self.__parsing_obj = list()
+        self.__parsing_obj: list = list()
         self.turn_method = turn_method
 
         if apply_turning is not None:
@@ -35,7 +35,7 @@ class ItemsFetch:
             else:
                 raise ValueError('turn_method should not be None when the apply_turning is opening')
 
-    def auto_turning(self, func):
+    def auto_turning(self, func:callable):
         """
         For auto turn type switch.
         :param func: Inner running function.
@@ -78,7 +78,7 @@ class ItemsFetch:
             else:
                 raise TypeError(f'unknown type:{type(item)}')
 
-    def analysis(self):
+    def analysis(self) -> dict:
         """
         The entrance to run it.
         :return: Results analyzed.
@@ -112,10 +112,10 @@ class Mylist(list):
     def myremove(self, *items, remove_times=None, ignore_error: bool = False) -> 'Mylist':
         """
         remove items.
-        :param items: items which you need to remove
-        :param remove_times: number of times to remove the target you need
-        :param ignore_error: ignore_error
-        :return:
+        :param items: items which you need to remove.
+        :param remove_times: number of times to remove the target you need.
+        :param ignore_error: ignore_error.
+        :return: Its self.
         """
         if remove_times is None:
             remove_times = [-1]
@@ -148,7 +148,7 @@ class Mylist(list):
         if starts is None:
             starts = [0]
 
-        def try_ava(index_, target, replace_val, ie_inner, error_type):  # dispose error
+        def try_ava(index_:int, target, replace_val, ie_inner:bool, error_type:Exception):  # dispose error
             """
             Dispose error in get-items in names and starts.
             :param index_: Index.
@@ -244,7 +244,7 @@ class Myrandom:
     def __init__(self, random_struction):
         self.rs = random_struction
 
-    def __quick_sort(self, lists, i, j, target):
+    def __quick_sort(self, lists:list, i:int, j:int, target:int):
         """
         Extract high-probability head with quicksort.
         :param lists: The list we need to sort.
@@ -270,13 +270,13 @@ class Myrandom:
         self.__quick_sort(lists, i + 1, high, target)
         return lists
 
-    def fetch(self, number) -> 'Mylist':
+    def fetch(self, number:int) -> 'Mylist':
         """
         Extract Elements.
         :param number: The number of samples we need to extract
         :return: A random Mylist includes its item(s)
         """
-        choose_list = []
+        choose_list: list = list()
 
         def inner(choose_list_in):
             random.shuffle(self.rs)  # disorganize
