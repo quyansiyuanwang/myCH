@@ -35,7 +35,7 @@ class ItemsFetch:
             else:
                 raise ValueError('turn_method should not be None when the apply_turning is opening')
 
-    def auto_turning(self, func:callable):
+    def auto_turning(self, func: callable):
         """
         For auto turn type switch.
         :param func: Inner running function.
@@ -111,10 +111,10 @@ class Mylist(list):
 
     def myremove(self, *items, remove_times=None, ignore_error: bool = False) -> 'Mylist':
         """
-        remove items.
-        :param items: items which you need to remove.
-        :param remove_times: number of times to remove the target you need.
-        :param ignore_error: ignore_error.
+        Remove items.
+        :param items: Items which you need to remove.
+        :param remove_times: Number of times to remove the target you need.
+        :param ignore_error: Ignore_error.
         :return: Its self.
         """
         if remove_times is None:
@@ -148,7 +148,7 @@ class Mylist(list):
         if starts is None:
             starts = [0]
 
-        def try_ava(index_:int, target, replace_val, ie_inner:bool, error_type:Exception):  # dispose error
+        def try_ava(index_: int, target, replace_val, ie_inner: bool, error_type):  # dispose error
             """
             Dispose error in get-items in names and starts.
             :param index_: Index.
@@ -244,7 +244,7 @@ class Myrandom:
     def __init__(self, random_struction):
         self.rs = random_struction
 
-    def __quick_sort(self, lists:list, i:int, j:int, target:int):
+    def __quick_sort(self, lists: list, i: int, j: int, target: int):
         """
         Extract high-probability head with quicksort.
         :param lists: The list we need to sort.
@@ -270,7 +270,7 @@ class Myrandom:
         self.__quick_sort(lists, i + 1, high, target)
         return lists
 
-    def fetch(self, number:int) -> 'Mylist':
+    def fetch(self, number: int) -> 'Mylist':
         """
         Extract Elements.
         :param number: The number of samples we need to extract
