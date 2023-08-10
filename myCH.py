@@ -60,7 +60,7 @@ class ItemsFetch:
         """
         self.__parsing_obj = new_value
 
-    def base_type(self, obj) -> None:
+    def __base_type(self, obj) -> None:
         """
         Pick the items from complex obj by recursion.
         :param obj: The obj we need to analysis.
@@ -72,9 +72,9 @@ class ItemsFetch:
                 def auto_app():
                     self.parsing_obj.append(item)
             elif isinstance(item, (set, tuple, list)):
-                self.base_type(item)
+                self.__base_type(item)
             elif isinstance(item, dict):
-                self.base_type(item.items())
+                self.__base_type(item.items())
             else:
                 raise TypeError(f'unknown type:{type(item)}')
 
@@ -83,7 +83,7 @@ class ItemsFetch:
         The entrance to run it.
         :return: Results analyzed.
         """
-        self.base_type(self.complex_obj)
+        self.__base_type(self.complex_obj)
         return self.parsing_obj
 
     def __str__(self):
