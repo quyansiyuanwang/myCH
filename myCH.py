@@ -310,21 +310,21 @@ class Myrandom:
                 string += '\n'
         return string
 
+if __name__=='__main':
+    members = Mylist(range(1, 44)).myremove(range(10, 13), remove_times=[0, -1, 0])
+    a = Mylist([20, 20, 20, 70] + [20] * 38)  # 第四个概率为70
+    members.connect(a)  # 联结
+    b = Myrandom(members.get_all())
+    # print(b)
+    c = b.fetch(7)  # 抽取
+    # print(c.regroup())
+    print(c.regroup().get(0))
+    print(c.match(range(5, 49)))  # list可以存放人名，即可叫人
 
-members = Mylist(range(1, 44)).myremove(range(10, 13), remove_times=[0, -1, 0])
-a = Mylist([20, 20, 20, 70] + [20] * 38)  # 第四个概率为70
-members.connect(a)  # 联结
-b = Myrandom(members.get_all())
-# print(b)
-c = b.fetch(7)  # 抽取
-# print(c.regroup())
-print(c.regroup().get(0))
-print(c.match(range(5, 49)))  # list可以存放人名，即可叫人
+    # print(members.get(0))
+    # print(members.get_all())
+    # print(members.get_all().regroup())
 
-# print(members.get(0))
-# print(members.get_all())
-# print(members.get_all().regroup())
-
-# a = ItemsFetch([3,6.39,(7,[2,5,{'%*','&'}]),{'hello':'world'}])
-# a.analysis()
-# print(a)
+    # a = ItemsFetch([3,6.39,(7,[2,5,{'%*','&'}]),{'hello':'world'}])
+    # a.analysis()
+    # print(a)
