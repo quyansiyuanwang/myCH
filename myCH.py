@@ -310,7 +310,7 @@ class Myrandom:
                 string += '\n'
         return string
 
-if __name__=='__main':
+if __name__=='__main__':
     members = Mylist(range(1, 44)).myremove(range(10, 13), remove_times=[0, -1, 0])
     a = Mylist([20, 20, 20, 70] + [20] * 38)  # 第四个概率为70
     members.connect(a)  # 联结
