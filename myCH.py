@@ -21,6 +21,7 @@ class ItemsFetch:
         if runit:
             self.analysis()
 
+
     @property
     def parsing_obj(self) -> iter:
         """
@@ -194,31 +195,36 @@ class Mylist(list):
         if len(result) == 1:
             result = result[0]
         return result
+    
+    def mylist_decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            return Mylist(result)
+        return wrapper
 
+    @mylist_decorator
     def get_all(self) -> 'Mylist':
         """
         Obtain the content of the corresponding index.
         :return: A Mylist includes all the items.
         """
 
-        def inner():
-            for index in range(len(self)):
-                yield self.get(index)
+        for index in range(len(self)):
+            yield self.get(index)
 
-        return Mylist(inner())
 
+    @mylist_decorator
     def regroup(self) -> 'Mylist':
         """
         Reorganization, the n.th element of each list is reorganized into a new list.
         :return: A Mylist includes the items regrouped.
         """
+        
+        for index in range(len(self[0])):
+            yield Mylist(item[index] for item in self)
 
-        def inner():
-            for index in range(len(self[0])):
-                yield Mylist(item[index] for item in self)
 
-        return Mylist(inner())
-
+    @mylist_decorator
     def match(self, iterable) -> 'Mylist':
         """
         Subscript the corresponding contents in the iterable object.
@@ -228,16 +234,13 @@ class Mylist(list):
         """
         # Get items from the iterable
         items = ItemsFetch(iterable).analysis()
-
-        def inner():
-            first_group = self.regroup().get(0)
-            for index in ItemsFetch(first_group).analysis():
-                try:
-                    yield items[index]
-                except IndexError:
-                    raise IndexError(f'index value:{index} out of length({len(items) - 1})')
-
-        return Mylist(inner())
+        
+        first_group = self.regroup().get(0)
+        for index in ItemsFetch(first_group).analysis():
+            try:
+                yield items[index]
+            except IndexError:
+                raise IndexError(f'index value:{index} out of length({len(items) - 1})')
 
 
 class Myrandom:
