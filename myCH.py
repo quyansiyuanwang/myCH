@@ -68,16 +68,13 @@ class ItemsFetch:
         :return: None. Its storage by pointer.
         """
         for item in obj:
-            if isinstance(item, (int, float, str, bool)):
+            if not hasattr(item, 'iter'):
                 @self.auto_turning
                 def auto_app():
                     self.parsing_obj.append(item)
-            elif isinstance(item, (set, tuple, list)):
-                self.__base_type(item)
-            elif isinstance(item, dict):
-                self.__base_type(item.items())
+
             else:
-                raise TypeError(f'unknown type:{type(item)}')
+                self.__base_type(item)
 
     def analysis(self) -> dict:
         """
@@ -189,7 +186,7 @@ class Mylist(list):
         for target in targets:
             struct_form = self.connection[target]
             temp_list.append(struct_form['iter'][struct_form['start'] + index])
-
+            
         result = Mylist(temp_list)
         # If there is only one layer, reduce list nesting.
         if len(result) == 1:
@@ -211,8 +208,7 @@ class Mylist(list):
 
         for index in range(len(self)):
             yield self.get(index)
-
-
+            
     @mylist_decorator
     def regroup(self) -> 'Mylist':
         """
@@ -237,6 +233,7 @@ class Mylist(list):
         
         first_group = self.regroup().get(0)
         for index in ItemsFetch(first_group).analysis():
+            
             try:
                 yield items[index]
             except IndexError:
@@ -315,10 +312,10 @@ class Myrandom:
 
 if __name__=='__main__':
     members = Mylist(range(1, 44)).myremove(range(10, 13), remove_times=[0, -1, 0])
-    a = Mylist([20, 20, 20, 70] + [20] * 38)  # 第四个概率为70
+    a = Mylist([20, 20, 20, 70] + [20] * 39)  # 第四个概率为70
     members.connect(a)  # 联结
     b = Myrandom(members.get_all())
-    # print(b)
+    print(b)
     c = b.fetch(7)  # 抽取
     # print(c.regroup())
     print(c.regroup().get(0))
