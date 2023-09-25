@@ -76,7 +76,7 @@ class ItemsFetch:
             else:
                 self.__base_type(item)
 
-    def analysis(self) -> dict:
+    def analyse(self) -> dict:
         """
         The entrance to run it.
         :return: Results analyzed.
