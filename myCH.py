@@ -64,7 +64,7 @@ class ItemsFetch:
     def __base_type(self, obj) -> None:
         """
         Pick the items from complex obj by recursion.
-        :param obj: The obj we need to analysis.
+        :param obj: The obj we need to analyse.
         :return: None. Its storage by pointer.
         """
         for item in obj:
