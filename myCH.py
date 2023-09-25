@@ -19,7 +19,7 @@ class ItemsFetch:
             else:
                 self.apply_turning = False
         if runit:
-            self.analysis()
+            self.analyze()
 
 
     @property
@@ -64,7 +64,7 @@ class ItemsFetch:
     def __base_type(self, obj) -> None:
         """
         Pick the items from complex obj by recursion.
-        :param obj: The obj we need to analyse.
+        :param obj: The obj we need to analyze.
         :return: None. Its storage by pointer.
         """
         for item in obj:
@@ -76,7 +76,7 @@ class ItemsFetch:
             else:
                 self.__base_type(item)
 
-    def analyse(self) -> dict:
+    def analyze(self) -> dict:
         """
         The entrance to run it.
         :return: Results analyzed.
@@ -117,7 +117,7 @@ class Mylist(list):
         """
         if remove_times is None:
             remove_times = [-1]
-        items = ItemsFetch(tuple(*items)).analysis()
+        items = ItemsFetch(tuple(*items)).analyze()
         if isinstance(remove_times, int):  # fill all the remove times
             remove_times = [remove_times] * len(items)
         remove_times += [-1] * abs((len(items) - len(remove_times)))
@@ -193,13 +193,13 @@ class Mylist(list):
             result = result[0]
         return result
     
-    def mylist_decorator(func):
+    def unit_return_dec(func):
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
             return Mylist(result)
         return wrapper
 
-    @mylist_decorator
+    @unit_return_dec
     def get_all(self) -> 'Mylist':
         """
         Obtain the content of the corresponding index.
@@ -209,7 +209,7 @@ class Mylist(list):
         for index in range(len(self)):
             yield self.get(index)
             
-    @mylist_decorator
+    @unit_return_dec
     def regroup(self) -> 'Mylist':
         """
         Reorganization, the n.th element of each list is reorganized into a new list.
@@ -220,7 +220,7 @@ class Mylist(list):
             yield Mylist(item[index] for item in self)
 
 
-    @mylist_decorator
+    @unit_return_dec
     def match(self, iterable) -> 'Mylist':
         """
         Subscript the corresponding contents in the iterable object.
@@ -229,10 +229,10 @@ class Mylist(list):
         :return: A new group of elem collect from iterable
         """
         # Get items from the iterable
-        items = ItemsFetch(iterable).analysis()
+        items = ItemsFetch(iterable).analyze()
         
         first_group = self.regroup().get(0)
-        for index in ItemsFetch(first_group).analysis():
+        for index in ItemsFetch(first_group).analyze():
             
             try:
                 yield items[index]
@@ -326,5 +326,5 @@ if __name__=='__main__':
     # print(members.get_all().regroup())
 
     # a = ItemsFetch([3,6.39,(7,[2,5,{'%*','&'}]),{'hello':'world'}])
-    # a.analysis()
+    # a.analyze()
     # print(a)
